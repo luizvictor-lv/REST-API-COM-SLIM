@@ -35,8 +35,8 @@ class UsuarioController
     }
 
     public function getUsuario(Request $request, Response $response, array $args): Response
-    {
-        $usuario = $args ['nome'];
+    {   
+
         $dao = new UsuarioDAO();
         $usuarios = $dao->getUsuario();
         

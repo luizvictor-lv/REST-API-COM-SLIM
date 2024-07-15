@@ -67,19 +67,66 @@
         .btn-back:hover {
             background-color: #0056b3;
         }
+        #result {
+            margin-top: 20px;
+            width: 300px;
+        }
+
+        .user {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     
     <h1>Adicionar Usuário</h1>
-    <form method="POST" action="http://localhost:8000/loja/public/usuarios">
+    <form method="POST" id="submitform" action="http://localhost:8000/loja/public/usuarios">
         <input type="text" name="nome" placeholder="Nome" required>
         <input type="email" name="email" placeholder="E-Mail" required>
         <input type="tel" name="telefone"   placeholder="(00) 00000-0000"required >
         <input type="password" name="senha" placeholder="Senha" required>
         <button type="submit"  >Adicionar</button>
     </form>
-    <a href="pesquisar.html" class="btn-back">Pesquisar Usuario</a>
-    
+    <a href="pesquisar.php" class="btn-back">Pesquisar Usuario</a>
+    <div id="result"></div>
+    <script>
+        document.getElementById('submitform').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formdata = new FormData(document.querySelector('form'));
+
+            const params = new URLSearchParams(formdata);
+            const opts = {
+                method: 'POST',
+                body: params
+            }
+
+            fetch('http://localhost:8000/loja/public/usuarios', opts).then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.text();
+            }).then(data => {
+            
+            displayResults(data)
+            }).catch(err => console.log(err))
+            ;
+        });
+        function displayResults(data) {
+            
+            const resultDiv = document.getElementById('result');
+            const json = JSON.parse(data);
+            resultDiv.innerHTML = json.message;
+            resultDiv.classList.add('user');
+            const formdata = document.querySelector('form');
+            formdata.reset();
+        }
+
+    </script>
 </body>
 </html>
+
+ 

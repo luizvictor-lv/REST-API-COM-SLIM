@@ -31,7 +31,7 @@ abstract class Conexao
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ]);
 
-            echo "Conexão bem-sucedida!<br>";
+            // echo "Conexão bem-sucedida!<br>";
         } catch (PDOException $e) {
             // Opcional: Você pode lançar uma exceção ou logar o erro
             throw new \Exception('Erro ao conectar com o banco de dados: ' . $e->getMessage());

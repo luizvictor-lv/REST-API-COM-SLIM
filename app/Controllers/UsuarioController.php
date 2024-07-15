@@ -30,7 +30,7 @@ class UsuarioController
         $dao = new UsuarioDAO();
         $dao->cadastroUsuario($usuario);
 
-        $response->getBody()->write(json_encode(['message' => "Usuário cadastrado com sucesso: Nome - {$data['nome']}, Email - {$data['email']}"]));
+        $response->getBody()->write(json_encode(['message' => "Usuário cadastrado com sucesso:<br> Nome - {$data['nome']}<br> Email - {$data['email']}"]));
         return $response->withHeader('Content-Type', 'application/json');}
     }
 
@@ -39,7 +39,7 @@ class UsuarioController
 
         $dao = new UsuarioDAO();
         $usuarios = $dao->getUsuario();
-        
+
         $response->getBody()->write(json_encode($usuarios));
         return $response->withHeader('Content-Type', 'application/json');
     }
